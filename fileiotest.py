@@ -5,8 +5,7 @@
 #4 - yeah
 
 #in checking if account exists try to put filenames in a list?? idk
-#uhm soooooooo hehe 
-#new test
+#need way to check if account already exists 
 
 accounts = []
 
@@ -18,11 +17,27 @@ def start():
       else:
          print("Invalid input.")
     if newornot == "Y":
-     while True:
+     newacc()
+    if newornot == "N":
+      while True:
+        try:
+         accexists = str(input("Enter your account name here: ").lower())
+         break
+        except ValueError:
+          print("Account doesn't exist, please check input.")
+     
+def newacc():
+   while True:
       try:
-        checkacc = str(input("Input account name here: ").lower().strip())
+        checkacc = str(input("Enter a username here: ").lower().strip())
         break
       except ValueError:
         print("Input a valid account name.")
-     #add file thingy here
-        
+   with open(f"{checkacc}.txt") as file:
+      return checkacc
+
+def oldacc():
+  pass
+
+def main():
+  print("Welcome!")
