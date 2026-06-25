@@ -7,7 +7,6 @@
 #in checking if account exists try to put filenames in a list?? idk
 #need way to check if account already exists 
 
-accounts = []
 
 def start():
     while True:
