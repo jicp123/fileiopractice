@@ -6,9 +6,12 @@
 
 #in checking if account exists try to put filenames in a list?? idk
 #need way to check if account already exists 
-
-
+#ok so not list, i make a database w all accounts and yeahhh
+accounts = []
 def start():
+    with open("accounts.txt") as file:
+      for x in file:
+        accounts.append(x.strip())
     while True:
       newornot = input("Do you have an existing account? (Y/N):  ").upper().strip()
       if newornot in ["Y", "N"]:
@@ -24,19 +27,27 @@ def start():
          break
         except ValueError:
           print("Account doesn't exist, please check input.")
-     
+      
+      
 def newacc():
    while True:
-      try:
-        checkacc = str(input("Enter a username here: ").lower().strip())
-        break
-      except ValueError:
-        print("Input a valid account name.")
-   with open(f"{checkacc}.txt") as file:
-      return checkacc
+        checkacc = input("Enter a username here: ").lower().strip()
+        confirm = input(f"Is {checkacc} correct? (Y/N): ").upper().strip()
+        if confirm in ["Y", "N"]:
+          if confirm == "Y":
+            break
+          else:
+            continue
+        else:
+          print("Invalid input.")
+      
+   with open(f"{checkacc}.txt") as _:
+      with open("accounts.txt", "a") as file:
+         file.write(f"{checkacc}\n")
+   main(checkacc)
 
 def oldacc():
   pass
 
-def main():
-  print("Welcome!")
+def main(accname):
+  print(f"Welcome {accname}!")
