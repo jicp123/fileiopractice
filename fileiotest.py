@@ -47,7 +47,12 @@ def newacc():
    main(checkacc)
 
 def oldacc():
-  pass
+  while True:
+        try:
+         accexists = str(input("Enter your account name here: ").lower())
+         break
+        except ValueError:
+          print("Account doesn't exist, please check input.")
 
 def main(accname):
   print(f"Welcome {accname}!")
