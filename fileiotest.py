@@ -19,14 +19,9 @@ def start():
       else:
          print("Invalid input.")
     if newornot == "Y":
-     newacc()
+     oldacc()
     if newornot == "N":
-      while True:
-        try:
-         accexists = str(input("Enter your account name here: ").lower())
-         break
-        except ValueError:
-          print("Account doesn't exist, please check input.")
+     newacc()
       
       
 def newacc():
@@ -41,18 +36,21 @@ def newacc():
         else:
           print("Invalid input.")
       
-   with open(f"{checkacc}.txt") as _:
+   with open(f"{checkacc}.txt", "a") as _:
       with open("accounts.txt", "a") as file:
          file.write(f"{checkacc}\n")
    main(checkacc)
 
 def oldacc():
   while True:
-        try:
-         accexists = str(input("Enter your account name here: ").lower())
-         break
-        except ValueError:
-          print("Account doesn't exist, please check input.")
-
+    accexists = input("Enter your account name here: ").lower().strip()
+    if accexists in accounts:
+      main(accexists)
+      break
+    else:
+      print("Account not found. Please check input.")  
+       
 def main(accname):
   print(f"Welcome {accname}!")
+
+start()
