@@ -9,15 +9,16 @@
 #ok so not list, i make a database w all accounts and yeahhh
 accounts = []
 def start():
-    with open("accounts.txt") as file:
+    with open("accounts.csv") as file:
       for x in file:
-        accounts.append(x.strip())
+        row = x.rstrip().split(",")
+        accounts.append(row[0])
     while True:
       newornot = input("Do you have an existing account? (Y/N):  ").upper().strip()
       if newornot in ["Y", "N"]:
          break
       else:
-         print("Invalid input.")
+        print("Invalid input.")
     if newornot == "Y":
      oldacc()
     if newornot == "N":
