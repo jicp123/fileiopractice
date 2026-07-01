@@ -1,18 +1,19 @@
 #so uhh erm login typa thingy lmao
-#1 - user is asked if login or new acc
-#2 - in new acc, make new file according to username, then in login user uses name to access that file u feel me
-#3 - in making new acc user is asked to input info bout themselves js for shits n giggles then save
-#4 - yeah
-
-#in checking if account exists try to put filenames in a list?? idk
-#need way to check if account already exists 
-#ok so not list, i make a database w all accounts and yeahhh
-accounts = []
+#yo future me or anyone reading this, add something to check if bdays are valid, like if they match actual dates
+import csv
+accounts = {}
 def start():
     with open("accounts.csv") as file:
-      for x in file:
-        row = x.rstrip().split(",")
-        accounts.append(row[0])
+      file1 = csv.reader(file)
+      for x in file1:
+        username = x[0].strip()
+        dob = x[1].strip()
+        age = int(x[2].strip())
+
+        accounts[username] = {
+          "birthday": dob,
+          "age": age
+        }
     while True:
       newornot = input("Do you have an existing account? (Y/N):  ").upper().strip()
       if newornot in ["Y", "N"]:
@@ -28,6 +29,10 @@ def start():
 def newacc():
    while True:
         checkacc = input("Enter a username here: ").lower().strip()
+        print(accounts)
+        if checkacc in accounts:
+          print("Account already exists.")
+          continue
         confirm = input(f"Is {checkacc} correct? (Y/N): ").upper().strip()
         if confirm in ["Y", "N"]:
           if confirm == "Y":
@@ -37,9 +42,8 @@ def newacc():
         else:
           print("Invalid input.")
       
-   with open(f"{checkacc}.txt", "a") as _:
-      with open("accounts.txt", "a") as file:
-         file.write(f"{checkacc}\n")
+   with open("accounts.csv", "a") as file:
+    file.write(f"{checkacc}\n")
    main(checkacc)
 
 def oldacc():
