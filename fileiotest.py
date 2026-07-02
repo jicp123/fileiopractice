@@ -7,11 +7,11 @@ def start():
       file1 = csv.reader(file)
       for x in file1:
         username = x[0].strip()
-        dob = x[1].strip()
+        date = x[1].strip()
         age = int(x[2].strip())
 
         accounts[username] = {
-          "birthday": dob,
+          "birthday": date,
           "age": age
         }
     while True:
@@ -29,7 +29,6 @@ def start():
 def newacc():
    while True:
         checkacc = input("Enter a username here: ").lower().strip()
-        print(accounts)
         if checkacc in accounts:
           print("Account already exists.")
           continue
@@ -41,21 +40,34 @@ def newacc():
             continue
         else:
           print("Invalid input.")
-      
-   with open("accounts.csv", "a") as file:
-    file.write(f"{checkacc}\n")
-   main(checkacc)
+   main(checkacc, False)
 
 def oldacc():
   while True:
     accexists = input("Enter your account name here: ").lower().strip()
     if accexists in accounts:
-      main(accexists)
+      main(accexists, True)
       break
     else:
       print("Account not found. Please check input.")  
        
-def main(accname):
-  print(f"Welcome {accname}!")
+def main(accname, state):
+  if state == False:
+   bday = input("Enter your birthday (MM/DD/YY): ")
+   while True:
+    try:
+     age = str(input("Enter your age: "))
+     break
+    except TypeError:
+     print("Please input a number.")
+   with open("accounts.csv", "a") as file:
+    file.write(f"{accname}")
+    file.write(f", {bday}")
+    file.write(f", {age}\n")
+    print(f"Welcome {accname}!")
+    print("Account successfully created.")
+  if state == True:
+    print(f"Welcome back {accname}!")
+    #placeholder, do smth here lmao
 
 start()
