@@ -4,26 +4,26 @@ import csv
 accounts = {}
 def start():
     with open("accounts.csv") as file:
-      file1 = csv.reader(file)
+      file1 = csv.DictReader(file)
       for x in file1:
-        username = x[0].strip()
-        date = x[1].strip()
-        age = int(x[2].strip())
+        username = x["name"].strip()
+        date = x["dob"].strip()
+        age = int(x["age"].strip())
 
         accounts[username] = {
           "birthday": date,
           "age": age
         }
-    while True:
-      newornot = input("Do you have an existing account? (Y/N):  ").upper().strip()
-      if newornot in ["Y", "N"]:
-         break
-      else:
-        print("Invalid input.")
-    if newornot == "Y":
-     oldacc()
-    if newornot == "N":
-     newacc()
+    #while True:
+      #newornot = input("Do you have an existing account? (Y/N):  ").upper().strip()
+      #if newornot in ["Y", "N"]:
+         #break
+      #else:
+        #print("Invalid input.")
+    #if newornot == "Y":
+     #oldacc()
+    #if newornot == "N":
+     #newacc()
       
       
 def newacc():
@@ -71,3 +71,4 @@ def main(accname, state):
     #placeholder, do smth here lmao
 
 start()
+print(accounts)
