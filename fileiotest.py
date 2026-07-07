@@ -1,7 +1,10 @@
 #so uhh erm login typa thingy lmao
 #yo future me or anyone reading this, add something to check if bdays are valid, like if they match actual dates
 import csv
+import re
 accounts = {}
+bday_pattern = r"^[0-9]{2}/[0-9]{2}/[0-9]{2}$"
+age_pattern = r"^[0-9]{2}$"
 def start():
     with open("accounts.csv") as file:
       file1 = csv.DictReader(file)
@@ -14,16 +17,16 @@ def start():
           "birthday": date,
           "age": age
         }
-    #while True:
-      #newornot = input("Do you have an existing account? (Y/N):  ").upper().strip()
-      #if newornot in ["Y", "N"]:
-         #break
-      #else:
-        #print("Invalid input.")
-    #if newornot == "Y":
-     #oldacc()
-    #if newornot == "N":
-     #newacc()
+    while True:
+      newornot = input("Do you have an existing account? (Y/N):  ").upper().strip()
+      if newornot in ["Y", "N"]:
+         break
+      else:
+        print("Invalid input.")
+    if newornot == "Y":
+     oldacc()
+    if newornot == "N":
+     newacc()
       
       
 def newacc():
@@ -53,22 +56,26 @@ def oldacc():
        
 def main(accname, state):
   if state == False:
-   bday = input("Enter your birthday (MM/DD/YY): ")
    while True:
-    try:
+    bday = input("Enter your birthday (MM/DD/YY): ")
+    if re.match(bday_pattern, bday):
+      break
+    else:
+      print("Invalid birthday format, Please follow MM/DD/YY")
+   while True:
      age = str(input("Enter your age: "))
-     break
-    except TypeError:
-     print("Please input a number.")
+     if re.match(age_pattern, age):
+       break
+     else:
+       print("Invalid input.")
    with open("accounts.csv", "a") as file:
-    file.write(f"{accname}")
-    file.write(f", {bday}")
-    file.write(f", {age}\n")
-    print(f"Welcome {accname}!")
-    print("Account successfully created.")
-  if state == True:
+     file.write(f"{accname}")
+     file.write(f",{bday}") 
+     file.write(f",{age}\n")  
+     print(f"Welcome {accname}!")
+     print("Account successfully created.")
+  elif state == True:
     print(f"Welcome back {accname}!")
     #placeholder, do smth here lmao
 
 start()
-print(accounts)
