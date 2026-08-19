@@ -76,6 +76,6 @@ def main(accname, state):
      print("Account successfully created.")
   elif state == True:
     print(f"Welcome back {accname}!")
-    #placeholder, do smth here lmao
+    #placeholder
 
 start()
